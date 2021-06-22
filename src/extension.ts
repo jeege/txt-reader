@@ -51,26 +51,32 @@ export function activate({
 			const novelContent = getContent(filePath);
 			const novelData = transNovelData(novelContent);
 			let index = (globalState.get(`${fileName}_chapter`) as number) || 0;
+            let scrollTop = (globalState.get(`${fileName}_scrollTop`) as number) || 0;
             panel.webview.html = getWebviewContent(extensionPath);
             panel.webview.onDidReceiveMessage((message) => {
 				if (message.cmd === 'init') {
 					if (message.page) {
 						index = message.page;
 					};
-					invokeCallback(panel, message, novelData[index]);
+					invokeCallback(panel, message, {chapter: novelData[index], scrollTop});
 				}
 				if (message.cmd === 'left' && index > 0) {
-					invokeCallback(panel, message, novelData[--index]);
+					invokeCallback(panel, message, {chapter: novelData[--index]});
 				}
 				if (message.cmd === 'right' && index < novelData.length - 1) {
-					invokeCallback(panel, message, novelData[++index]);
+					invokeCallback(panel, message, {chapter: novelData[++index]});
 				}
 				if (message.cmd === 'getDirectory') {
-					invokeCallback(panel, message, novelData.map(i => (i.subtitle || i.title)));
+					invokeCallback(panel, message, novelData.map((i, idx) => ({title: i.subtitle || i.title, idx})));
 				}
+				if (message.cmd === 'setScrollTop') {
+                    scrollTop = message.scrollTop;
+				}
+                
             }, undefined, subscriptions);
 			panel.onDidDispose(() => {
 				globalState.update(`${fileName}_chapter`, index);
+                globalState.update(`${fileName}_scrollTop`, scrollTop);
 			});
         })
     );

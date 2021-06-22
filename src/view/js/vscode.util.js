@@ -1,6 +1,19 @@
 (function(){
     const vscode = acquireVsCodeApi();
     const callbacks = {};
+    window.throttle = function(fn, delay) {
+        let timer = null;
+        return (...props) => {
+            if (timer) {
+                return;
+            }
+            fn.apply(this, props);
+            timer = setTimeout(() => {
+                timer = null;
+                fn.apply(this, props);
+            }, delay);
+        };
+    };
     window.callVscode = function(data, cb) {
         if (typeof data === 'string') {
             data = {cmd: data};

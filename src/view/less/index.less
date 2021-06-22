@@ -5,26 +5,54 @@
 .title, .subtitle {
     text-align: center;
 }
+button.btn {
+    cursor: pointer;
+    padding: 4px 15px;
+    background-color: #444;
+    color: #ccc;
+    border: none;
+    outline: 0;
+}
 .menu {
     display: flex;
     align-items: center;
     justify-content: space-around;
     margin-top: 40px;
-    button {
-        cursor: pointer;
-        padding: 4px 15px;
-        background-color: #444;
-        color: #ccc;
-        border: none;
-        outline: 0;
-    }
 }
 .d-wrap {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
+    padding-top: 40px;
+    .search-wrap {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 0 20px;
+        height: 40px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1e1e1e;
+        .btn {
+            padding: 6px 15px;
+        }
+        .ipt {
+            flex: 1;
+            margin-left: 10px;
+            width: 100%;
+            padding: 8px;
+            background-color: #444;
+            border: none;
+            color: #ccc;
+            outline: 0;
+        }
+    }
     .d-item {
         width: 50%;
         cursor: pointer;

@@ -2,7 +2,7 @@
   "name": "txt-reader",
   "displayName": "txt-reader",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
 	"publisher": "jeege",
   "icon": "images/icon.png",
   "repository": "https://github.com/jeege/txt-reader.git",
