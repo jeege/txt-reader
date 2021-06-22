@@ -2,8 +2,7 @@
 .vscode-test/**
 out/test/**
 
-src/**
-!src/view/
+src/**.ts
 src/view/template/**
 src/view/less/**
 .gitignore

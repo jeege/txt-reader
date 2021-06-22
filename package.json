@@ -5,6 +5,7 @@
   "version": "0.0.1",
 	"publisher": "jeege",
   "icon": "images/icon.png",
+  "repository": "https://github.com/jeege/txt-reader.git",
   "engines": {
     "vscode": "^1.0.0"
   },

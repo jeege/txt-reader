@@ -5,15 +5,9 @@ import {
     commands,
     window,
     workspace,
-    Uri,
-    Location,
-    Position,
-    Range,
-    TextEditorRevealType,
     ViewColumn,
-    TextEditor,
-    TextDocument,
 	WebviewPanel,
+    ConfigurationTarget,
 } from 'vscode';
 import { TxtListProvider } from './txtList';
 import * as fs from 'fs';
@@ -32,7 +26,6 @@ interface Message {
 export function activate({
     subscriptions,
     globalState,
-    globalStorageUri,
     extensionPath,
 }: ExtensionContext) {
     const novelPath: string = workspace.getConfiguration().get('txt-reader.filePath') || '';
@@ -102,7 +95,7 @@ export function activate({
                 })
                 .then((path) => {
                     if (path) {
-                        workspace.getConfiguration().update('txt-reader.filePath', path);
+                        workspace.getConfiguration().update('txt-reader.filePath', path, ConfigurationTarget.Global);
                         txtListProvider.setFilePath(path);
                         txtListProvider.refresh();
                     }
@@ -112,8 +105,9 @@ export function activate({
 
     subscriptions.push(
         commands.registerCommand('txt-reader.openPath', () => {
-            if (novelPath) {
-                execSync(`open ${novelPath}`);
+            const path = workspace.getConfiguration().get('txt-reader.filePath');
+            if (path) {
+                execSync(`open ${path}`);
             } else {
                 window.showErrorMessage('请先设置目录');
             }
