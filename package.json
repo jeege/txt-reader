@@ -1,0 +1,114 @@
+{
+  "name": "txt-reader",
+  "displayName": "txt-reader",
+  "description": "",
+  "version": "0.0.1",
+	"publisher": "jeege",
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "txt-reader-menu",
+          "title": "小说阅读",
+          "icon": "images/book.svg"
+        }
+      ]
+    },
+    "views": {
+      "txt-reader-menu": [
+        {
+          "id": "txt-reader-menu.list",
+          "name": "小说目录"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "txt-reader.openFile",
+        "title": "打开文件"
+      },
+      {
+        "command": "txt-reader.refreshList",
+        "title": "刷新列表",
+        "icon": "images/refresh.svg"
+      },
+      {
+        "command": "txt-reader.settingPath",
+        "title": "设置文件目录"
+      },
+      {
+        "command": "txt-reader.openPath",
+        "title": "打开文件夹"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "txt-reader.refreshList",
+          "when": "view == txt-reader-menu.list",
+          "group": "navigation"
+        },
+        {
+          "command": "txt-reader.openPath",
+          "when": "view == txt-reader-menu.list"
+        },
+        {
+          "command": "txt-reader.settingPath",
+          "when": "view == txt-reader-menu.list"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Txt Reader configuration",
+      "type": "object",
+      "properties": {
+        "txt-reader.filePath": {
+          "type": "string",
+          "default": "",
+          "description": "文件路径"
+        }
+      }
+    },
+    "viewsWelcome": [
+      {
+        "view": "txt-reader-menu.list",
+        "contents": "您还没有设置文件目录，或者您的文件目录为空。\n[前往设置](command:txt-reader.settingPath)\n[打开文件夹](command:txt-reader.openPath)"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.19.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  },
+  "dependencies": {
+    "iconv-lite": "^0.6.3"
+  }
+}
